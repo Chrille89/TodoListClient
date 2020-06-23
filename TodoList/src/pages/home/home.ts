@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomePage {
 
+  private taskName : string;
   private taskList : any[] = [];
 
   constructor(private httpClient : HttpClient, public navCtrl: NavController) {
@@ -22,7 +22,7 @@ export class HomePage {
   public addTask() : void {
     if(this.taskName && this.taskName.length > 0) {
       let task = {};
-      task.label =  this.taskName;
+      task["label"] =  this.taskName;
       this.taskName = "";
       this.postTask(task);
     }
@@ -33,20 +33,20 @@ export class HomePage {
   }
 
   public getTasks() : void {
-    this.httpClient.get("http://localhost:8080/all").subscribe((data: any[]) => {
+    this.httpClient.get("http://192.168.1.224:8080/all").subscribe((data: any[]) => {
       this.taskList = data;
     });
   }
 
   public postTask(task : any){
-    this.httpClient.post("http://localhost:8080/new",task).subscribe((data: any) => {
+    this.httpClient.post("http://192.168.1.224:8080/new",task).subscribe((data: any) => {
       console.log("Add new task: ",data);
       this.getTasks();
     });
   }
 
   public deleteTask(id:number) : void {
-    this.httpClient.delete("http://localhost:8080/"+id).subscribe((data: any[]) => {
+    this.httpClient.delete("http://192.168.1.224:8080/"+id).subscribe((data: any[]) => {
       console.log("Delete task with id: ",id);
       this.getTasks();
     });
