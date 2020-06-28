@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomePage {
 
+  private host : string = "http://h2857701.stratoserver.net:8080";
   private taskName : string;
   private taskList : any[] = [];
 
@@ -33,20 +34,20 @@ export class HomePage {
   }
 
   public getTasks() : void {
-    this.httpClient.get("http://192.168.1.224:8080/all").subscribe((data: any[]) => {
+    this.httpClient.get(this.host+"/all").subscribe((data: any[]) => {
       this.taskList = data;
     });
   }
 
   public postTask(task : any){
-    this.httpClient.post("http://192.168.1.224:8080/new",task).subscribe((data: any) => {
+    this.httpClient.post(this.host+"/new",task).subscribe((data: any) => {
       console.log("Add new task: ",data);
       this.getTasks();
     });
   }
 
   public deleteTask(id:number) : void {
-    this.httpClient.delete("http://192.168.1.224:8080/"+id).subscribe((data: any[]) => {
+    this.httpClient.delete(this.host+"/"+id).subscribe((data: any[]) => {
       console.log("Delete task with id: ",id);
       this.getTasks();
     });

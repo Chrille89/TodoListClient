@@ -5,22 +5,22 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MyApp } from './app.component';
+import { Aufgaben } from './app.component';
 import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
-    MyApp,
+    Aufgaben,
     HomePage
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(Aufgaben)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    Aufgaben,
     HomePage
   ],
   providers: [
