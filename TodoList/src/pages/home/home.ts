@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'page-home',
@@ -9,24 +10,20 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
 
   private host : string = "http://h2857701.stratoserver.net:8080";
-  private taskName : string;
+  private todo : any;
   private taskList : any[] = [];
 
   constructor(private httpClient : HttpClient, public navCtrl: NavController) {
-
+    this.todo = {};
   }
 
   ngOnInit() {
    this.getTasks();
   }
 
-  public addTask() : void {
-    if(this.taskName && this.taskName.length > 0) {
-      let task = {};
-      task["label"] =  this.taskName;
-      this.taskName = "";
-      this.postTask(task);
-    }
+  public addTask(form: NgForm) : void {
+    this.todo = form;
+    this.postTask(this.todo);
   }
 
   public completeTask(id : number) : void {
@@ -35,6 +32,7 @@ export class HomePage {
 
   public getTasks() : void {
     this.httpClient.get(this.host+"/all").subscribe((data: any[]) => {
+      console.log("GET data: ",data);
       this.taskList = data;
     });
   }
