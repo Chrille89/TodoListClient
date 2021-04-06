@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class HomePage {
 
-  private host : string = "http://h2857701.stratoserver.net:8080";
+  private host : string = "http://h2857701.stratoserver.net:8080/TodoListServer";
   private todo : any;
   private taskList : any[] = [];
 
